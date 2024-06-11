@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title> <!-- title of the webpage -->
+    <!-- css styles for the html -->
+    <style>
+        html {
+            background-color: lightskyblue; /* background color of the html */
+        }
+        .register-box {
+            width: 200px; /* set width of the register box */
+            height: 275px; /* set height of the register box */
+            margin: 0 auto; /* centers login box horizontally */
+            margin-top: 200px; /* move login box 200 pixels down */
+            padding: 20px; /* padding inside the login box */
+            background-color: lightsteelblue; /* background color of the login box */
+            border: 5px solid lightgrey; /* 5px solid light grey border around the login box */
+            border-radius: 5px; /* rounds corners of the login box */
+        }
+    </style>
+</head>
+<body>   
+        <div class="register-box"> <!-- register class -->
+        <h1>Register</h1> <!-- login header -->
+        <!-- specify the url to which the form data will be submitted via post method -->
+        <form action="/register" method="post">
+            <label for="username">Username:</label> <!-- username label -->
+            <input type="text" name="username" required><br> <!-- usernme text field which is required -->
+            <label for="password">Password:</label> <!-- password label -->
+            <input type="password" name="password" required><br> <!-- password text field which is required -->
+            <input type="submit" value="Register"> <!-- submit button with value "Login" -->
+        </form>
+        <!-- get flash error and displays them -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p> <!-- displays the flash error message -->
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        <div>
+            <label>Already have an account?</label><br> <!-- Displays the label "Already have an account?" -->
+            <!-- button with link to the login page -->
+            <a href="{{ url_for('login') }}" ><button>Login now</button></a>
+        </div>
+        
+        </div> 
+        
+</body>
+</html>

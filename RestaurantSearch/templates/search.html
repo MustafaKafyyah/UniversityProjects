@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Restaurant Search</title> <!-- title of the webpage -->
+    <!-- css styles for the html -->
+    <style>
+        html {
+            background-color: indianred; /* background color of the html */
+        }
+        .search-box {
+            padding: 20px; /* padding around the wrapper */
+            background-color: #f0f0f0; /* background color of the search box */
+            border: 5px solid #ccc; /* 5px solid light grey border around the search box */
+            border-radius: 5px; /* rounds corners of the search box */
+        }
+    </style>
+</head> 
+<body>
+    <!-- welcome header with username -->
+    
+    <h1>Welcome, {{ session['username'] }}</h1> 
+    <div class="search-box"> <!-- search class -->
+    <a href="{{ url_for('logout') }}"><button>Logout</button></a> <!-- logout -->
+    <h2>Restaurant Search</h2> <!-- restaurant heading -->
+    
+    <!-- specify the url to which the form data will be submitted via get method -->
+    <form action="{{ url_for('search') }}" method="get"> 
+        <label for="search_query">Search:</label> <!-- search label -->
+        <input type="text" name="search_query" id="search_query" required> <!-- search text field -->
+        <select name="search_type" id="search_type"> <!-- dropdown menu for criteria of search -->
+            <option value="name">Name</option> <!-- name menu item -->
+            <option value="cuisine">Cuisine</option> <!-- cuisine menu item -->
+            <option value="borough">Borough</option> <!-- borough menu item -->
+            <option value="address.street">Street</option> <!-- street menu item -->
+            <option value="grades.0.grade">Grade</option> <!-- most recent grade menu item -->
+        </select>
+        <button type="submit">Search</button> <!-- submit buttom -->
+    </form>
+    
+    <h3>Search Results:</h3> <!-- search resualts header -->
+    <ul> <!-- define unordered list -->
+        {% for restaurant in restaurants %} <!-- iterates over restaurants in restuarnts list
+            <li> <!-- starts a list item -->
+                <b>Name</b>: {{ restaurant.name }} <br> <!-- display name -->
+                <b>Cuisine</b>: {{ restaurant.cuisine }} <br> <!-- displays type of cuisine -->
+                <b>Borough</b>: {{ restaurant.borough }} <br> <!-- displays the borough -->
+                <b>Street</b>: {{ restaurant.address.building }} {{ restaurant.address.street }} <br> <!-- displays address -->
+                <b>Grade</b>: {{ restaurant.grades.0.grade }} </li> <br> <!-- display the grade of restaurant -->
+        {% endfor %} <!-- end loop -->
+    </ul> <!-- end unordered list -->
+    
+</div> 
+</body>
+</html>
